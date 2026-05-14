@@ -3,7 +3,7 @@
 
     <apex:form enctype="multipart/form-data">
 
-        <apex:pageBlock title="Send Email">
+        <apex:pageBlock title="Email Notification System">
 
             <apex:pageMessages/>
 
@@ -18,7 +18,6 @@
                 <apex:inputTextarea value="{!body}"
                                     label="Message"/>
 
-                <!-- Choose File -->
                 <apex:inputFile value="{!fileBody}"
                                 filename="{!fileName}"/>
 

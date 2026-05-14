@@ -1,0 +1,82 @@
+public class ProductController {
+
+    public Product__c p {get;set;}
+    public List<Product__c> pl {get;set;}
+
+    // Constructor
+    public ProductController() {
+
+        p = new Product__c();
+
+        showData();
+    }
+
+    // Insert Product
+    public void addData() {
+
+        insert p;
+
+        p = new Product__c();
+
+        showData();
+    }
+
+    // Display Products
+    public void showData() {
+
+        pl = [
+
+            SELECT Id,
+                   Name,
+                   SerialNo__c,
+                   MnfDate__c,
+                   ExpDate__c
+            FROM Product__c
+            ORDER BY CreatedDate DESC
+        ];
+    }
+
+    // Delete Product
+    public void deleteData() {
+
+        Id i = ApexPages.currentPage()
+               .getParameters().get('id');
+
+        delete [
+
+            SELECT Id
+            FROM Product__c
+            WHERE Id = :i
+        ];
+
+        showData();
+    }
+
+    // Edit Product
+    public void editData() {
+
+        Id i = ApexPages.currentPage()
+               .getParameters().get('id');
+
+        p = [
+
+            SELECT Id,
+                   Name,
+                   SerialNo__c,
+                   MnfDate__c,
+                   ExpDate__c
+            FROM Product__c
+            WHERE Id = :i
+        ];
+    }
+
+    // Update Product
+    public void updateData() {
+
+        update p;
+
+        p = new Product__c();
+
+        showData();
+    }
+}

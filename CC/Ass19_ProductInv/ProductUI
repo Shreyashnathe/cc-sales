@@ -1,0 +1,87 @@
+<apex:page controller="ProductController">
+
+    <apex:form>
+
+        <apex:pageBlock title="Product Inventory Management System">
+
+            <apex:pageBlockSection columns="2">
+
+                <apex:inputText value="{!p.Name}"
+                                label="Product Name"/>
+
+                <apex:inputText value="{!p.SerialNo__c}"
+                                label="Serial No"/>
+
+                <apex:inputField value="{!p.MnfDate__c}"
+                                 label="Manufacture Date"/>
+
+                <apex:inputField value="{!p.ExpDate__c}"
+                                 label="Expiry Date"/>
+
+            </apex:pageBlockSection>
+
+            <apex:pageBlockButtons>
+
+                <apex:commandButton value="Add Product"
+                                    action="{!addData}"
+                                    rerender="tbl"/>
+
+                <apex:commandButton value="Update Product"
+                                    action="{!updateData}"
+                                    rerender="tbl"/>
+
+            </apex:pageBlockButtons>
+
+        </apex:pageBlock>
+
+        <br/>
+
+        <apex:pageBlock title="Product Records"
+                         id="tbl">
+
+            <apex:pageBlockTable value="{!pl}"
+                                 var="x">
+
+                <apex:column value="{!x.Name}"
+                             headerValue="Product Name"/>
+
+                <apex:column value="{!x.SerialNo__c}"
+                             headerValue="Serial No"/>
+
+                <apex:column value="{!x.MnfDate__c}"
+                             headerValue="Manufacture Date"/>
+
+                <apex:column value="{!x.ExpDate__c}"
+                             headerValue="Expiry Date"/>
+
+                <apex:column headerValue="Edit">
+
+                    <apex:commandLink value="Edit"
+                                      action="{!editData}">
+
+                        <apex:param name="id"
+                                    value="{!x.Id}"/>
+
+                    </apex:commandLink>
+
+                </apex:column>
+
+                <apex:column headerValue="Delete">
+
+                    <apex:commandLink value="Delete"
+                                      action="{!deleteData}">
+
+                        <apex:param name="id"
+                                    value="{!x.Id}"/>
+
+                    </apex:commandLink>
+
+                </apex:column>
+
+            </apex:pageBlockTable>
+
+        </apex:pageBlock>
+
+    </apex:form>
+
+</apex:page>

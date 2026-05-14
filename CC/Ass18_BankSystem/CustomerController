@@ -1,0 +1,103 @@
+public class CustomerController {
+
+    // Insert Customer
+    public static void addCustomer(Integer id,
+                                   String name,
+                                   String email,
+                                   Date dob,
+                                   String dept) {
+
+        Customer__c c = new Customer__c();
+
+        c.EmpId__c = id;
+        c.Name = name;
+        c.Email__c = email;
+        c.DOB__c = dob;
+        c.Dept__c = dept;
+
+        insert c;
+
+        System.debug('Customer Added Successfully');
+    }
+
+    // Display Customers
+    public static void showCustomer() {
+
+        List<Customer__c> l = [
+
+            SELECT Id,
+                   Name,
+                   EmpId__c,
+                   Email__c,
+                   DOB__c,
+                   Dept__c
+            FROM Customer__c
+        ];
+
+        for(Customer__c c : l) {
+
+            System.debug(
+                'ID : ' + c.EmpId__c +
+                ' | Name : ' + c.Name +
+                ' | Email : ' + c.Email__c +
+                ' | DOB : ' + c.DOB__c +
+                ' | Dept : ' + c.Dept__c
+            );
+        }
+    }
+
+    // Update Customer
+    public static void updateCustomer(Integer id,
+                                      String dept) {
+
+        Customer__c c = [
+
+            SELECT Id,
+                   Dept__c
+            FROM Customer__c
+            WHERE EmpId__c = :id
+            LIMIT 1
+        ];
+
+        c.Dept__c = dept;
+
+        update c;
+
+        System.debug('Customer Updated Successfully');
+    }
+
+    // Delete Customer
+    public static void deleteCustomer(Integer id) {
+
+        Customer__c c = [
+
+            SELECT Id
+            FROM Customer__c
+            WHERE EmpId__c = :id
+            LIMIT 1
+        ];
+
+        delete c;
+
+        System.debug('Customer Deleted Successfully');
+    }
+}
+
+//Console Based
+// Insert
+CustomerController.addCustomer(
+    101,
+    'Shreyash',
+    'shreyash@gmail.com',
+    Date.newInstance(2004,5,10),
+    'IT'
+);
+
+// Display
+CustomerController.showCustomer();
+
+// Update
+CustomerController.updateCustomer(101,'HR');
+
+// Delete
+CustomerController.deleteCustomer(101);
