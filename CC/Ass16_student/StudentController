@@ -1,0 +1,79 @@
+public class StudentController {
+
+    public Student__c s {get;set;}
+    public List<Student__c> sl {get;set;}
+
+    // Constructor
+    public StudentController() {
+
+        s = new Student__c();
+
+        showData();
+    }
+
+    // Insert Record
+    public void addData() {
+
+        insert s;
+
+        s = new Student__c();
+
+        showData();
+    }
+
+    // Display Records
+    public void showData() {
+
+        sl = [
+            SELECT Id,
+                   Name,
+                   RollNo__c,
+                   Class__c,
+                   MobileNo__c
+            FROM Student__c
+            ORDER BY CreatedDate DESC
+        ];
+    }
+
+    // Delete Record
+    public void deleteData() {
+
+        Id i = ApexPages.currentPage()
+               .getParameters().get('id');
+
+        delete [
+            SELECT Id
+            FROM Student__c
+            WHERE Id = :i
+        ];
+
+        showData();
+    }
+
+    // Edit Record
+    public void editData() {
+
+        Id i = ApexPages.currentPage()
+               .getParameters().get('id');
+
+        s = [
+            SELECT Id,
+                   Name,
+                   RollNo__c,
+                   Class__c,
+                   MobileNo__c
+            FROM Student__c
+            WHERE Id = :i
+        ];
+    }
+
+    // Update Record
+    public void updateData() {
+
+        update s;
+
+        s = new Student__c();
+
+        showData();
+    }
+}

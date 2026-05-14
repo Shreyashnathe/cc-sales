@@ -1,0 +1,63 @@
+public class EmailController2 {
+
+    public String toEmail {get;set;}
+    public String subject {get;set;}
+    public String body {get;set;}
+
+    public void sendMail() {
+
+        // Email Validation
+        if(toEmail == null ||
+           !Pattern.matches(
+           '^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$',
+           toEmail)) {
+
+            ApexPages.addMessage(
+                new ApexPages.Message(
+                    ApexPages.Severity.ERROR,
+                    'Invalid Email Address'
+                )
+            );
+
+            return;
+        }
+
+        // Email Object
+        Messaging.SingleEmailMessage mail =
+            new Messaging.SingleEmailMessage();
+
+        mail.setToAddresses(
+            new String[] {toEmail}
+        );
+
+        mail.setSubject(subject);
+
+        mail.setPlainTextBody(body);
+
+        // Attachment
+        Messaging.EmailFileAttachment file =
+            new Messaging.EmailFileAttachment();
+
+        file.setFileName('demo.txt');
+
+        file.setBody(
+            Blob.valueOf('This is attachment file.')
+        );
+
+        mail.setFileAttachments(
+            new Messaging.EmailFileAttachment[] {file}
+        );
+
+        // Send Email
+        Messaging.sendEmail(
+            new Messaging.SingleEmailMessage[] {mail}
+        );
+
+        ApexPages.addMessage(
+            new ApexPages.Message(
+                ApexPages.Severity.CONFIRM,
+                'Email Sent Successfully'
+            )
+        );
+    }
+}

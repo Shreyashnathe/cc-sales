@@ -1,0 +1,70 @@
+Validation Rule 1
+
+Rule Name:
+Employee_Name_Validation
+
+Formula:
+LEN(Name) < 3
+
+Error Message:
+Employee Name must contain at least 3 characters.
+
+
+
+Validation Rule 2
+
+Rule Name:
+Employee_ID_Validation
+
+Formula:
+EmpId__c <= 0
+
+Error Message:
+Employee ID must be greater than 0.
+
+
+
+Validation Rule 3
+
+Rule Name:
+Salary_Validation
+
+Formula:
+OR(
+    Salary__c <= 10000,
+    Salary__c >= 500000
+)
+
+Error Message:
+Salary must be between 10,000 and 500,000.
+
+
+
+Validation Rule 4
+
+Rule Name:
+Department_Validation
+
+Formula:
+ISBLANK(TEXT(Dept__c))
+
+Error Message:
+Please select Department.
+
+
+
+Validation Rule 5
+
+Rule Name:
+Joining_Date_Validation
+
+Formula:
+JoiningDate__c > TODAY()
+
+Error Message:
+Joining Date cannot be a future date.
+
+
+
+Note:
+Email field validation is automatically handled by Salesforce because Email__c field type is Email.

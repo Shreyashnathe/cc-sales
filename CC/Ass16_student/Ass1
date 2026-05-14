@@ -1,0 +1,87 @@
+<apex:page controller="StudentController">
+
+    <apex:form>
+
+        <apex:pageBlock title="Student Management System">
+
+            <apex:pageBlockSection columns="2">
+
+                <apex:inputText value="{!s.Name}"
+                                label="Student Name"/>
+
+                <apex:inputText value="{!s.RollNo__c}"
+                                label="Roll No"/>
+
+                <apex:inputText value="{!s.Class__c}"
+                                label="Class"/>
+
+                <apex:inputText value="{!s.MobileNo__c}"
+                                label="Mobile No"/>
+
+            </apex:pageBlockSection>
+
+            <apex:pageBlockButtons>
+
+                <apex:commandButton value="Add Student"
+                                    action="{!addData}"
+                                    rerender="tbl"/>
+
+                <apex:commandButton value="Update Student"
+                                    action="{!updateData}"
+                                    rerender="tbl"/>
+
+            </apex:pageBlockButtons>
+
+        </apex:pageBlock>
+
+        <br/>
+
+        <apex:pageBlock title="Student Records"
+                         id="tbl">
+
+            <apex:pageBlockTable value="{!sl}"
+                                 var="x">
+
+                <apex:column value="{!x.Name}"
+                             headerValue="Name"/>
+
+                <apex:column value="{!x.RollNo__c}"
+                             headerValue="Roll No"/>
+
+                <apex:column value="{!x.Class__c}"
+                             headerValue="Class"/>
+
+                <apex:column value="{!x.MobileNo__c}"
+                             headerValue="Mobile No"/>
+
+                <apex:column headerValue="Edit">
+
+                    <apex:commandLink value="Edit"
+                                      action="{!editData}">
+
+                        <apex:param name="id"
+                                    value="{!x.Id}"/>
+
+                    </apex:commandLink>
+
+                </apex:column>
+
+                <apex:column headerValue="Delete">
+
+                    <apex:commandLink value="Delete"
+                                      action="{!deleteData}">
+
+                        <apex:param name="id"
+                                    value="{!x.Id}"/>
+
+                    </apex:commandLink>
+
+                </apex:column>
+
+            </apex:pageBlockTable>
+
+        </apex:pageBlock>
+
+    </apex:form>
+
+</apex:page>

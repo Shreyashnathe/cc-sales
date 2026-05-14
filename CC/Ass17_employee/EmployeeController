@@ -1,0 +1,102 @@
+public class EmployeeController {
+
+    // Insert Employee
+    public static void addEmp(Integer id,
+                              String name,
+                              String email,
+                              Date dob,
+                              String dept) {
+
+        Employee__c e = new Employee__c();
+
+        e.EmpId__c = id;
+        e.Name = name;
+        e.Email__c = email;
+        e.DOB__c = dob;
+        e.Dept__c = dept;
+
+        insert e;
+
+        System.debug('Employee Added Successfully');
+    }
+
+    // Display Employees
+    public static void showEmp() {
+
+        List<Employee__c> l = [
+
+            SELECT Id,
+                   Name,
+                   EmpId__c,
+                   Email__c,
+                   DOB__c,
+                   Dept__c
+            FROM Employee__c
+        ];
+
+        for(Employee__c e : l) {
+
+            System.debug(
+                'Emp ID : ' + e.EmpId__c +
+                ' | Name : ' + e.Name +
+                ' | Email : ' + e.Email__c +
+                ' | DOB : ' + e.DOB__c +
+                ' | Dept : ' + e.Dept__c
+            );
+        }
+    }
+
+    // Update Employee Department
+    public static void updateEmp(Integer id,
+                                 String dept) {
+
+        Employee__c e = [
+
+            SELECT Id,
+                   Dept__c
+            FROM Employee__c
+            WHERE EmpId__c = :id
+            LIMIT 1
+        ];
+
+        e.Dept__c = dept;
+
+        update e;
+
+        System.debug('Employee Updated Successfully');
+    }
+
+    // Delete Employee
+    public static void deleteEmp(Integer id) {
+
+        Employee__c e = [
+
+            SELECT Id
+            FROM Employee__c
+            WHERE EmpId__c = :id
+            LIMIT 1
+        ];
+
+        delete e;
+
+        System.debug('Employee Deleted Successfully');
+    }
+}
+
+// Insert
+EmployeeController.addEmp(
+    101,
+    'Shreyash',
+    'shreyash@gmail.com',
+    Date.newInstance(2004,5,10),
+    'IT'
+);
+
+// Display
+EmployeeController.showEmp();
+
+// Update
+EmployeeController.updateEmp(101,'HR');
+
+// Delete
+EmployeeController.deleteEmp(101);
